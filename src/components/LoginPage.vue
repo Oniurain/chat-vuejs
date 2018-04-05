@@ -1,18 +1,26 @@
 <template>
   <div class="hello">
+    {{name}}
   </div>
 </template>
 
-<script>
-export default {
-  name: "HelloWorld",
-  data() {
-    return {
-      msg: "Welcome to Your Vue.js App",
-      jobOffers: []
-    };
+<script lang="ts">
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
+import Vuex, { Store } from 'vuex';
+import { userInformationStore } from "../store";
+
+@Component
+export default class LoginPage extends Vue {
+  name = "HelloWorld";
+  msg = "Welcome to you vue.ts App";
+  jobOffers: Array<any> = [2, 4];
+  created() {
+    this.name = this.$store.state.login;
+    userInformationStore.dispatch('')
+    debugger
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
