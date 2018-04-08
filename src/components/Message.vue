@@ -1,6 +1,6 @@
 <template>
 <div>
-  <span class="username">{{user}}</span>@{{timer}} : {{message}}
+  <span class="username">{{Author}}</span>@{{CreationDate}} : {{Message}}
 </div>
 </template>
 
@@ -11,11 +11,11 @@ import Vuex, { Store } from "vuex";
 
 @Component
 export default class Message extends Vue {
-  @Prop() message: string;
+  @Prop() Message: string;
 
-  @Prop() user: string;
+  @Prop() Author: string;
 
-  @Prop() timer: Date = new Date();
+  @Prop() CreationDate: Date;
 }
 </script>
 

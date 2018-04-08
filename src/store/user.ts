@@ -1,8 +1,9 @@
 import { IUser } from "../interfaces/IUser";
-import { StoreOptions } from "vuex";
-import { userService } from "../services/userService";
+import { Module } from "vuex";
+import { userService } from "../dataServices/userService";
 
-export const user: StoreOptions<any> = {
+export const userStore: Module<any, any> = {
+    namespaced: true,
     state: {
         login: '',
         isFail: false
@@ -14,12 +15,22 @@ export const user: StoreOptions<any> = {
                     .then((data) => {
                         context.commit('UpdateLogin', data.login);
                         context.commit('UpdateFailStatus', false);
-                        resolve();
+                        sessionStorage.setItem('login', data.login);
+                        resolve(data);
                     })
                     .catch(() => {
                         context.commit('UpdateFailStatus', true);
                         reject();
                     }));
+        },
+        Get: (context) => {
+            return new Promise<string>((resolve) => {
+                const login = sessionStorage.getItem('login');
+                if (login) {
+                    context.commit('UpdateLogin', login);
+                }
+                resolve();
+            });
         }
     },
     mutations: {

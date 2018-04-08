@@ -2,7 +2,7 @@
   <div class="hello">
     <span>Login:</span>
     <input v-model="login" >
-    <button v-on:click="saveLogin">Submit</button>
+    <button v-on:submit="saveLogin">Submit</button>
     <br/>
     <span v-if="this.$store.state.isFail" class="error-msg"> Your login is already taken, change it please!</span>
   </div>
@@ -16,9 +16,15 @@ import Vuex, { Store } from "vuex";
 @Component
 export default class LoginPage extends Vue {
   login = "";
-  created() {}
+  created() {
+    this.$store.dispatch("userStore/Get").then((data) => {
+      if (this.$store.state.login) {
+        this.$router.push({ path: "/chat" });
+      }
+    });
+  }
   saveLogin() {
-    this.$store.dispatch("Add", { login: this.login }).then(() => {
+    this.$store.dispatch("userStore/Add", { login: this.login }).then(() => {
       this.$router.push({ path: "/chat" });
     });
   }

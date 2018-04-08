@@ -1,8 +1,14 @@
 import Vuex, { Store } from 'vuex';
 import Vue from 'vue';
-import { user } from './user';
+import { userStore } from './user';
+import { messageStore } from './message';
 import { IUser } from '../interfaces/IUser';
 
 Vue.use(Vuex)
 
-export const userInformationStore: Store<IUser> = new Vuex.Store<IUser>(user)
+export const store = new Vuex.Store({
+    modules: {
+        userStore,
+        messageStore
+    }
+})
