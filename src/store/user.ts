@@ -1,11 +1,33 @@
 import { IUser } from "../interfaces/IUser";
 import { StoreOptions } from "vuex";
+import { userService } from "../services/userService";
 
-export const user: StoreOptions<IUser> = {
+export const user: StoreOptions<any> = {
     state: {
-        login: 'fu'
+        login: '',
+        isFail: false
     },
-    getters: {
-        login: state => state.login
+    actions: {
+        Add: (context, login) => {
+            return new Promise((resolve, reject) =>
+                userService.Add(login)
+                    .then((data) => {
+                        context.commit('UpdateLogin', data.login);
+                        context.commit('UpdateFailStatus', false);
+                        resolve();
+                    })
+                    .catch(() => {
+                        context.commit('UpdateFailStatus', true);
+                        reject();
+                    }));
+        }
+    },
+    mutations: {
+        UpdateLogin: (state, login) => {
+            state.login = login;
+        },
+        UpdateFailStatus: (state, isFail) => {
+            state.isFail = isFail;
+        }
     }
 }

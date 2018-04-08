@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import LoginPage from '../components/LoginPage.vue';
-import JobOffer from '../components/JobOffer.vue';
+import Chat from '../components/Chat.vue';
 
 Vue.use(Router);
 
@@ -13,8 +13,9 @@ export default new Router({
       component: LoginPage,
     },
     {
-      path: '/jobOffers/:id',
-      component: JobOffer
+      path: '/chat',
+      name: 'Chat',
+      component: Chat
     }
   ],
 });
