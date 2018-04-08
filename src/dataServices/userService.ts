@@ -15,6 +15,12 @@ class UserService {
             }
         });
     }
+
+    GetAll = () => {
+        return new Promise<Array<string>>((resolve) => {
+            resolve(this.USERS);
+        });
+    }
 }
 
 export const userService = new UserService();

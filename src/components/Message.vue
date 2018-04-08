@@ -1,6 +1,6 @@
 <template>
 <div>
-  <span v-bind:style="{color: authorNameColor}">{{Author}}</span>@{{CreationDate}} : {{Message}}
+  <span v-bind:style="{color: authorNameColor}">{{Author}}</span>@{{shortDate}} : {{Message}}
 </div>
 </template>
 
@@ -25,6 +25,10 @@ export default class Message extends Vue {
     const c = (hash & 0x00ffffff).toString(16).toUpperCase();
 
     return "#00000".substring(0, 7 - c.length) + c;
+  }
+
+  get shortDate(): string {
+    return this.CreationDate.toDateString();
   }
 }
 </script>

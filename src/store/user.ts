@@ -31,6 +31,13 @@ export const userStore: Module<any, any> = {
                 }
                 resolve();
             });
+        },
+        GetAll: (context) => {
+            return new Promise((resolve) => {
+                userService.GetAll().then(users => {
+                    resolve(users);
+                })
+            });
         }
     },
     mutations: {
