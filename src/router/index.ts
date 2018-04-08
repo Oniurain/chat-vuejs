@@ -3,10 +3,11 @@ import Router from 'vue-router';
 import LoginPage from '../components/LoginPage.vue';
 import Chat from '../components/Chat.vue';
 import NotFound from '../components/NotFound.vue';
+import { store } from '../store';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -18,6 +19,18 @@ export default new Router({
       name: 'Chat',
       component: Chat
     },
-     { path: "*", component: NotFound }
+    { path: "*", component: NotFound }
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  const tmp = store;
+  if (to.name != 'LoginPage' && !tmp.state.userStore.login) {
+    next('/');
+  }
+  else {
+    next();
+  }
+})
+
+export default router;

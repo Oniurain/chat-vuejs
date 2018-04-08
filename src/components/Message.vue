@@ -1,6 +1,6 @@
 <template>
 <div>
-  <span class="username">{{Author}}</span>@{{CreationDate}} : {{Message}}
+  <span v-bind:style="{color: authorNameColor}">{{Author}}</span>@{{CreationDate}} : {{Message}}
 </div>
 </template>
 
@@ -16,6 +16,16 @@ export default class Message extends Vue {
   @Prop() Author: string;
 
   @Prop() CreationDate: Date;
+
+  get authorNameColor(): string {
+    let hash = 0;
+    for (let i = 0; i < this.Author.length; i++) {
+      hash = this.Author.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const c = (hash & 0x00ffffff).toString(16).toUpperCase();
+
+    return "#00000".substring(0, 7 - c.length) + c;
+  }
 }
 </script>
 

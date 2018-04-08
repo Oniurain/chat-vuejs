@@ -1,11 +1,11 @@
 <template>
-  <div class="hello">
+  <form v-on:submit="saveLogin" class="hello">
     <span>Login:</span>
     <input v-model="login" >
-    <button v-on:submit="saveLogin">Submit</button>
+    <button type="submit">Submit</button>
     <br/>
-    <span v-if="this.$store.state.isFail" class="error-msg"> Your login is already taken, change it please!</span>
-  </div>
+    <span v-if="this.isFail" class="error-msg"> Your login is already taken, change it please!</span>
+  </form>
 </template>
 
 <script lang="ts">
@@ -16,8 +16,11 @@ import Vuex, { Store } from "vuex";
 @Component
 export default class LoginPage extends Vue {
   login = "";
+  get isFail(): boolean {
+    return this.$store.state.userStore.isFail;
+  }
   created() {
-    this.$store.dispatch("userStore/Get").then((data) => {
+    this.$store.dispatch("userStore/Get").then(data => {
       if (this.$store.state.login) {
         this.$router.push({ path: "/chat" });
       }
