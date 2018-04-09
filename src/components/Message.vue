@@ -1,13 +1,12 @@
 <template>
 <div>
-  <span v-bind:style="{color: authorNameColor}">{{author}}</span>@{{shortDate}} : {{message}}
+  <span v-bind:style='{color: authorNameColor}'>{{author}}</span>@{{shortDate}} : {{message}}
 </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
-import Vuex, { Store } from "vuex";
+<script lang='ts'>
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
 
 @Component
 export default class Message extends Vue {
@@ -24,7 +23,7 @@ export default class Message extends Vue {
     }
     const c = (hash & 0x00ffffff).toString(16).toUpperCase();
 
-    return "#00000".substring(0, 7 - c.length) + c;
+    return '#00000'.substring(0, 7 - c.length) + c;
   }
 
   get shortDate(): string {
@@ -33,7 +32,7 @@ export default class Message extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<!-- Add 'scoped' attribute to limit CSS to this component only -->
+<style lang='scss' scoped>
 
 </style>

@@ -1,41 +1,40 @@
 <template>
-  <form v-on:submit="saveLogin" class="hello">
+  <form v-on:submit='saveLogin' class='hello'>
     <span>Login:</span>
-    <input v-model="login" >
-    <button type="submit">Submit</button>
+    <input v-model='login' >
+    <button type='submit'>Submit</button>
     <br/>
-    <span v-if="this.isFail" class="error-msg"> Your login is already taken, change it please!</span>
+    <span v-if='this.isFail' class='error-msg'> Your login is already taken, change it please!</span>
   </form>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import Vuex, { Store } from "vuex";
+<script lang='ts'>
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 
 @Component
 export default class LoginPage extends Vue {
-  login = "";
+  login = '';
   get isFail(): boolean {
     return this.$store.state.userStore.isFail;
   }
   created() {
-    this.$store.dispatch("userStore/Get").then(data => {
+    this.$store.dispatch('userStore/Get').then(data => {
       if (this.$store.state.login) {
-        this.$router.push({ path: "/chat" });
+        this.$router.push({ path: '/chat' });
       }
     });
   }
   saveLogin() {
-    this.$store.dispatch("userStore/Add", { login: this.login }).then(() => {
-      this.$router.push({ path: "/chat" });
+    this.$store.dispatch('userStore/Add', { login: this.login }).then(() => {
+      this.$router.push({ path: '/chat' });
     });
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<!-- Add 'scoped' attribute to limit CSS to this component only -->
+<style lang='scss' scoped>
 h1,
 h2 {
   font-weight: normal;

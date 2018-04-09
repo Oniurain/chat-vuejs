@@ -1,8 +1,7 @@
-import Vuex, { Store } from 'vuex';
+import Vuex from 'vuex';
 import Vue from 'vue';
 import { userStore } from './user';
 import { messageStore } from './message';
-import { IUser } from '../interfaces/IUser';
 
 Vue.use(Vuex)
 

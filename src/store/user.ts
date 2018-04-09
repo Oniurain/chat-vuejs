@@ -1,6 +1,6 @@
-import { IUser } from "../interfaces/IUser";
-import { Module } from "vuex";
-import { userService } from "../dataServices/userService";
+import { IUser } from '../interfaces/IUser';
+import { Module } from 'vuex';
+import { userService } from '../dataServices/userService';
 
 export const userStore: Module<any, any> = {
     namespaced: true,
@@ -27,6 +27,7 @@ export const userStore: Module<any, any> = {
             return new Promise<string>((resolve) => {
                 const login = sessionStorage.getItem('login');
                 if (login) {
+                    userService.Add({ login });
                     context.commit('UpdateLogin', login);
                 }
                 resolve();

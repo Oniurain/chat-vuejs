@@ -1,7 +1,6 @@
-import { IUser } from "../interfaces/IUser";
-import { Module } from "vuex";
-import { messageService } from "../dataServices/messageService";
-import { IMessageInformation } from "../interfaces/IMessageInformation";
+import { Module } from 'vuex';
+import { messageService } from '../dataServices/messageService';
+import { IMessageInformation } from '../interfaces/IMessageInformation';
 const MESSAGE_COUNT = 3;
 
 export const messageStore: Module<any, any> = {

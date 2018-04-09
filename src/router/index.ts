@@ -19,14 +19,21 @@ const router = new Router({
       name: 'Chat',
       component: Chat
     },
-    { path: "*", component: NotFound }
+    { path: '*', component: NotFound }
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const tmp = store;
-  if (to.name != 'LoginPage' && !tmp.state.userStore.login) {
-    next('/');
+  if (to.name != 'LoginPage') {
+    tmp.dispatch('userStore/Get').then(() => {
+      if (tmp.state.userStore.login) {
+        next();
+      }
+      else {
+        next('/');
+      }
+    });
   }
   else {
     next();

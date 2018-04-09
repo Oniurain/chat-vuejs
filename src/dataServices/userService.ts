@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import { IUser } from '../interfaces/IUser';
 
 class UserService {
