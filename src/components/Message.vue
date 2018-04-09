@@ -1,6 +1,6 @@
 <template>
 <div>
-  <span v-bind:style="{color: authorNameColor}">{{Author}}</span>@{{shortDate}} : {{Message}}
+  <span v-bind:style="{color: authorNameColor}">{{author}}</span>@{{shortDate}} : {{message}}
 </div>
 </template>
 
@@ -11,16 +11,16 @@ import Vuex, { Store } from "vuex";
 
 @Component
 export default class Message extends Vue {
-  @Prop() Message: string;
+  @Prop() message: string;
 
-  @Prop() Author: string;
+  @Prop() author: string;
 
-  @Prop() CreationDate: Date;
+  @Prop() creationDate: Date;
 
   get authorNameColor(): string {
     let hash = 0;
-    for (let i = 0; i < this.Author.length; i++) {
-      hash = this.Author.charCodeAt(i) + ((hash << 5) - hash);
+    for (let i = 0; i < this.author.length; i++) {
+      hash = this.author.charCodeAt(i) + ((hash << 5) - hash);
     }
     const c = (hash & 0x00ffffff).toString(16).toUpperCase();
 
@@ -28,7 +28,7 @@ export default class Message extends Vue {
   }
 
   get shortDate(): string {
-    return this.CreationDate.toDateString();
+    return this.creationDate.toDateString();
   }
 }
 </script>

@@ -7,8 +7,13 @@
 </span>
 </div>
 <div class="messages" >
-  <Message v-for="info in infos" v-bind:key="info.Id" v-bind="info"></Message>
+  <a v-if="canLoadMore" v-on:click="viewMore">Load More</a>
+  <Message v-for="info in infos" v-bind:key="info.id" v-bind="info"></Message>
 </div>
+<form v-on:submit="sendMessage">
+  <textarea v-model="newMessage"></textarea>
+  <input type="submit">
+</form>
 </div>
 </template>
 
@@ -22,19 +27,42 @@ import { IMessageInformation } from "../interfaces/IMessageInformation";
   components: { Message }
 })
 export default class Chat extends Vue {
-  infos: Array<IMessageInformation> = [];
   connectedUsers: Array<string> = [];
+  newMessage: string = "";
+  currentUser: string = this.$store.state.userStore.login;
+
+  get usersCount() {
+    return this.connectedUsers.length;
+  }
+
+  get infos() {
+    return this.$store.state.messageStore.messages;
+  }
+
+  get canLoadMore() {
+    return this.$store.state.messageStore.firstIndexLoaded > 0;
+  }
+
   created() {
-    this.$store.dispatch("messageStore/Get").then(messageInformations => {
-      this.infos = messageInformations;
-    });
+    this.$store.dispatch("messageStore/Get");
     this.$store.dispatch("userStore/GetAll").then(users => {
       this.connectedUsers = users;
     });
   }
 
-  get usersCount(){
-    return this.connectedUsers.length;
+  sendMessage() {
+    this.$store
+      .dispatch("messageStore/Add", {
+        message: this.newMessage,
+        author: this.currentUser,
+        creationDate: new Date()
+      })
+      .then(() => {
+        this.newMessage = "";
+      });
+  }
+  viewMore() {
+    this.$store.dispatch("messageStore/Get", true);
   }
 }
 </script>
@@ -47,10 +75,11 @@ export default class Chat extends Vue {
   .messages,
   .users {
     flex-direction: column;
+    text-align: left;
   }
   .users {
-    text-align: left;
     border: 1px solid green;
+    height: 100px;
     span {
       display: block;
     }
